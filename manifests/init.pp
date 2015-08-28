@@ -9,9 +9,9 @@ class drbd(
 ) {
   include drbd::service
 
-  package { 'drbd':
+  package { 'drbd8-utils':
     ensure => present,
-    name   => 'drbd8-utils',
+  #  name   => 'drbd8-utils',
   }
 
   # ensure that the kernel module is loaded
@@ -48,7 +48,7 @@ class drbd(
     purge   => true,
     recurse => true,
     force   => true,
-    require => Package['drbd'],
+    require => Package['drbd8-utils'],
   }
 
 #  exec { "fix_drbd_runlevel":
