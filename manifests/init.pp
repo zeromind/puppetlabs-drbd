@@ -24,7 +24,7 @@ class drbd(
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    require => Package['drbd'],
+    require => Package['drbd8-utils'],
     notify  => Class['drbd::service'],
   }
 
