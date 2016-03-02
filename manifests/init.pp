@@ -4,15 +4,16 @@
 # It has been influenced by the camptocamp module as well as
 # by an example created by Rackspace's cloudbuilders
 #
-class drbd(
-  $service_enable = true
+class drbd (
+  $service_enable     = true,
+  $service_ensure     = 'running',
+  $package_ensure     = 'installed',
+  $yumrepo_ensure     = 'present',
+  $yumrepo_url        = undef,
+  $yumrepo_gpgkey_url = 'https://www.elrepo.org/RPM-GPG-KEY-elrepo.org',
 ) {
   include drbd::service
-
-  package { 'drbd8-utils':
-    ensure => present,
-  #  name   => 'drbd8-utils',
-  }
+  include drbd::package
 
   # ensure that the kernel module is loaded
   exec { 'modprobe drbd':
@@ -24,7 +25,7 @@ class drbd(
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    require => Package['drbd8-utils'],
+    require => Package['drbd'],
     notify  => Class['drbd::service'],
   }
 
@@ -48,7 +49,7 @@ class drbd(
     purge   => true,
     recurse => true,
     force   => true,
-    require => Package['drbd8-utils'],
+    require => Package['drbd'],
   }
 
 #  exec { "fix_drbd_runlevel":
