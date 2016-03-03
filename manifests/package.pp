@@ -9,8 +9,13 @@ class drbd::package () {
           notify { "We are on an unsupported version of ${::os['name']}: ${::os['release']['major']}": }
         }
         '5', '6', '7': {
-          $pkg = 'drbd84-utils'
           include drbd::yumrepo
+          $pkg = 'drbd84-utils'
+          package { 'drbd kernel module':
+            ensure => $drbd::package_ensure,
+            name   => 'kmod-drbd84',
+            before => [ Service['drbd'], Exec['modprobe drbd'] ],
+          }
         }
       }
     }

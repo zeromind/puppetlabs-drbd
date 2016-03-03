@@ -12,8 +12,8 @@ class drbd (
   $yumrepo_url        = undef,
   $yumrepo_gpgkey_url = 'https://www.elrepo.org/RPM-GPG-KEY-elrepo.org',
 ) {
-  include drbd::service
   include drbd::package
+  include drbd::service
 
   # ensure that the kernel module is loaded
   exec { 'modprobe drbd':
