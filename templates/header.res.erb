@@ -28,7 +28,7 @@ resource <%= @name %> {
 <% if @handlers_parameters -%>
   handlers {
 <% @handlers_parameters.sort_by {|k, v| k}.each do |k, v| -%>
-    <%= k %> <%= v %>;
+    <%= k %> "<%= v %>";
 <% end -%>
   }
 <% end -%>
