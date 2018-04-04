@@ -6,6 +6,8 @@ class drbd::yumrepo (
   if $yumrepo_url {
     ensure_resource('yumrepo', 'elrepo-elrepo', {
       'ensure'   => $yumrepo_ensure,
+      'name'     => 'elrepo-elrepo',
+      'descr'    => 'ELRepo - elrepo',
       'baseurl'  => "$yumrepo_url/el\$releasever/\$basearch/",
       'enabled'  => 1,
       'gpgcheck' => 1,
@@ -16,3 +18,4 @@ class drbd::yumrepo (
     notify{ "yumrepo_url not provided, not managing the yumrepo": }
   }
 }
+
